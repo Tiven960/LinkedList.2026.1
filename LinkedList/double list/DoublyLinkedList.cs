@@ -4,7 +4,7 @@ using System.Text;
 
 namespace double_list;
 
-public class DoublyLinkedList<T>
+public class DoublyLinkedList<T> where T : IComparable<T>
 {
     private Node<T>? _head;
     private Node<T>? _tail;
@@ -19,14 +19,14 @@ public class DoublyLinkedList<T>
     {
         Node<T> newNode = new Node<T>(data);
 
-        // Lista vacía
+        // Empty list
         if (_head == null)
         {
             _head = _tail = newNode;
             return;
         }
 
-        // Insertar al inicio
+        // Insert at start
         if (data.CompareTo(_head.Data) < 0)
         {
             newNode.Next = _head;
@@ -37,14 +37,14 @@ public class DoublyLinkedList<T>
 
         Node<T>? current = _head;
 
-        // Buscar posición correcta
+        // Find correct position
         while (current.Next != null &&
                current.Next.Data.CompareTo(data) < 0)
         {
             current = current.Next;
         }
 
-        // Insertar al final
+        // Insert at the end
         if (current.Next == null)
         {
             current.Next = newNode;
@@ -53,7 +53,7 @@ public class DoublyLinkedList<T>
         }
         else
         {
-            // Insertar en medio
+            // Insert in middle
             newNode.Next = current.Next;
             newNode.Prev = current;
 
@@ -62,8 +62,9 @@ public class DoublyLinkedList<T>
         }
     }
 
-    // MOSTRAR HACIA ADELANTE
-    // =========================
+    // SHOW FORWARD
+
+
     public void ShowForward()
     {
         Node<T>? current = _head;
@@ -77,8 +78,7 @@ public class DoublyLinkedList<T>
         Console.WriteLine();
     }
 
-    // MOSTRAR HACIA ATRÁS
-    // =========================
+    // SHOW BACK
     public void ShowBackward()
     {
         Node<T>? current = _tail;
@@ -92,8 +92,8 @@ public class DoublyLinkedList<T>
         Console.WriteLine();
     }
 
-    // ORDENAR DESCENDENTEMENTE
-    // =========================
+    // ORDER IN DESCENDING ORDER
+
     public void SortDescending()
     {
         Node<T>? current = _head;
@@ -108,14 +108,14 @@ public class DoublyLinkedList<T>
             current = current.Prev;
         }
 
-        // Intercambiar head y tail
+        // Swap head and tail
         temp = _head;
         _head = _tail;
         _tail = temp;
     }
 
-    // EXISTE
-    // =========================
+    //EXISTS
+
     public bool Exists(T data)
     {
         Node<T>? current = _head;
@@ -131,8 +131,8 @@ public class DoublyLinkedList<T>
         return false;
     }
 
-    // ELIMINAR UNA OCURRENCIA
-    // =========================
+    // DELETE AN OCCURRENCE
+
     public void RemoveOne(T data)
     {
         Node<T>? current = _head;
@@ -141,7 +141,7 @@ public class DoublyLinkedList<T>
         {
             if (current.Data!.Equals(data))
             {
-                // Si es cabeza
+                // If it is head
                 if (current == _head)
                 {
                     _head = _head.Next;
@@ -149,7 +149,7 @@ public class DoublyLinkedList<T>
                     if (_head != null)
                         _head.Prev = null;
                 }
-                // Si es cola
+                // If it is tail
                 else if (current == _tail)
                 {
                     _tail = _tail.Prev;
@@ -170,9 +170,8 @@ public class DoublyLinkedList<T>
         }
     }
 
-    // =========================
-    // ELIMINAR TODAS LAS OCURRENCIAS
-    // =========================
+    // DELETE ALL OCCURRENCES
+
     public void RemoveAll(T data)
     {
         while (Exists(data))
@@ -181,9 +180,9 @@ public class DoublyLinkedList<T>
         }
     }
 
-    // =========================
-    // MOSTRAR MODA(S)
-    // =========================
+
+    // SHOW FASHION(S)
+
     public void ShowModes()
     {
         if (_head == null)
@@ -225,9 +224,8 @@ public class DoublyLinkedList<T>
         }
     }
 
-    // =========================
-    // MOSTRAR GRÁFICO
-    // =========================
+    // SHOW GRAPHIC
+
     public void ShowGraph()
     {
         Dictionary<T, int> frequencies = new Dictionary<T, int>();
